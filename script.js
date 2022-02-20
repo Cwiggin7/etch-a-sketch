@@ -21,32 +21,42 @@ cells.forEach(cell => {
 })
 
 document.querySelector('[data-clear]').addEventListener('click', () => {
-    cells.forEach(cell => {
-        cell.style.backgroundColor = 'transparent'
-    })
+    clear()
 })
 
 document.querySelector('[data-black]').addEventListener('click', () => {
-    removeEvent()
-    cells.forEach(cell => {
-        cell.addEventListener('mouseover', () => {
-            cell.style.backgroundColor = 'black'
-        })
-    })
+    removeMouseoverEvent()
+    addMouseoverEvent()
 })
 
 document.querySelector('[data-rainbow]').addEventListener('click', () => {
-    removeEvent()
-    cells.forEach(cell => {
-        cell.addEventListener('mouseover', () => {
-            var r = () => Math.random() * 256 >> 0
-            cell.style.backgroundColor = `rgb(${r()}, ${r()}, ${r()})`
-        })
-    })
+    removeMouseoverEvent()
+    addMouseoverEvent('rgb')
 })
 
-function removeEvent() {
+function removeMouseoverEvent() {
     cells.forEach(cell => {
         cell.removeEventListener('mouseover', event)
+    })
+}
+
+function clear() {
+    cells.forEach(cell => {
+        cell.style.backgroundColor = 'transparent'
+    })
+}
+
+function deleteGrid() {
+    cells.forEach(cell => {
+        cell.remove()
+    })
+}
+
+function addMouseoverEvent(color = 'black') {
+    cells.forEach(cell => {
+        cell.addEventListener('mouseover', () => {
+            if (color === 'rgb') cell.style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+            else cell.style.backgroundColor = `${color}`
+        })
     })
 }

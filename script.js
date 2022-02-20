@@ -1,24 +1,30 @@
 const sketchBox = document.getElementById('sketch-box')
 
-function createGrid() {
+function createGrid(size = 16) {
     let i = 0
-    while (i < 256) {
+    sketchBox.style.gridTemplateColumns = `repeat(${size}, auto)`;
+    while (i < size*size) {
         var element = document.createElement('div')
         element.classList.add('cell')
         sketchBox.appendChild(element)
-        i++;
+        i++
     }
 }
-
 createGrid()
 
-const cells = document.querySelectorAll('.cell')
+let cells = document.querySelectorAll('.cell')
+const gridSizeSlider = document.getElementById('grid-size-slider')
+const output = document.getElementById('output')
 
-cells.forEach(cell => {
-    cell.addEventListener('mouseover', () => {
-        cell.style.backgroundColor = 'black'
-    })
-})
+addMouseoverEvent()
+
+gridSizeSlider.onchange = function() {
+    deleteGrid()
+    createGrid(gridSizeSlider.value)
+    cells = document.querySelectorAll('.cell')
+    addMouseoverEvent()
+    output.innerText = `${gridSizeSlider.value}x${gridSizeSlider.value}`
+}
 
 document.querySelector('[data-clear]').addEventListener('click', () => {
     clear()
@@ -48,7 +54,7 @@ function clear() {
 
 function deleteGrid() {
     cells.forEach(cell => {
-        cell.remove()
+        cell.parentElement.removeChild(cell)
     })
 }
 

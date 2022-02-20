@@ -45,7 +45,6 @@ body {
     box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
     display: grid;
     grid-template-columns: repeat(16, auto);
-    grid-template-rows: repeat(16, auto);
 }
 
 #circles {
@@ -88,7 +87,7 @@ body {
 }
 
 .cell {
-    
+    background-color: transparent;
 }
 
 #buttons-box {
@@ -117,6 +116,6 @@ body {
     border-radius: 3px;
 }
 
-#size-slider {
+#grid-size-slider {
     background-color: #212121;
 }
